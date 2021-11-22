@@ -4,7 +4,8 @@ from pre_trained_transformers_tf import get_captions
 from gpt2.encoder import get_encoder
 import time
 import os
-import pickle
+import random
+from itertools import cycle
 
 class DeepMindBigGANLatentSpace(torch.nn.Module):
     def __init__(self, config):
@@ -51,26 +52,29 @@ class GPT2LatentSpace(torch.nn.Module):
         super(GPT2LatentSpace, self).__init__()
         self.config = config
 
-        if os.path.isfile(self.config.target + '.pickle'):
-            captions_tokenized = pickle.load(open(self.config.target + '.pickle', 'rb') )
+        if os.path.isfile(self.config.target + '.pt'):
+            self.z = torch.load(self.config.target + '.pt')
         else:
             self.enc = get_encoder(config)
             ini_t = time.time()
             captions = get_captions(self.config.target)
             end_t = time.time()
             print('[INFO] Generated captions. Time: {}'.format(end_t - ini_t))
-            captions_tokenized = {i: self.enc.encode(caption) for i, caption in enumerate(captions)}
-            print(captions_tokenized)
-            fp = open(self.config.target + '.pickle', 'wb') 
-            pickle.dump(captions_tokenized, fp)
+            captions_tokenized = [ self.enc.encode(caption) for caption in captions ]
 
-        # to:do: create tokens from captions already generated
+            vecs = []
+            for vec in cycle(captions_tokenized):
+                if len(vecs) >= self.config.batch_size:
+                    break
+                else:
+                    new_vec = vec
+                    while len(new_vec) < self.config.dim_z:
+                        new_vec.append(random.randint(0, self.config.encoder_size))
+                    vecs.append(new_vec)
+            self.z = torch.as_tensor(vecs)
+            torch.save(self.z, self.config.target + '.pt')
 
-        #tokens = torch.tensor(self.enc.encode(texto)).to(self.config.device)
-        
-        # to:do: modify self.z to get a tensor of list captions
-
-        self.z = torch.randint(0, self.config.encoder_size, size=(self.config.batch_size, self.config.dim_z)).to(self.config.device)
+        #self.z = torch.randint(0, self.config.encoder_size, size=(self.config.batch_size, self.config.dim_z)).to(self.config.device)
         #self.z = torch.zeros(self.config.batch_size, self.config.dim_z)
     
     def set_values(self, z):
