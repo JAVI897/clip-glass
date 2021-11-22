@@ -1,8 +1,8 @@
 import tensorflow as tf
 from tensorflow.keras.layers.experimental.preprocessing import TextVectorization
-from custom_schedule import custom_schedule
+from transformer_models.custom_schedule import custom_schedule
 from tensorflow import keras
-from model import get_cnn_model, TransformerEncoderBlock, TransformerDecoderBlock, ImageCaptioningModel
+from transformer_models.model import get_cnn_model, TransformerEncoderBlock, TransformerDecoderBlock, ImageCaptioningModel
 import numpy as np
 import json
 import re
