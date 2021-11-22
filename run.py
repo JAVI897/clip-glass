@@ -75,8 +75,8 @@ for vec in cycle(captions_tokenized):
         break
     else:
         new_vec = vec
-        while len(new_vec) < self.config.dim_z:
-            new_vec.append(random.randint(0, self.config.encoder_size))
+        while len(new_vec) < config.dim_z:
+            new_vec.append(random.randint(0, config.encoder_size))
             vecs.append(new_vec)
 
 initial_solutions = torch.as_tensor(vecs)
