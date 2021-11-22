@@ -48,3 +48,6 @@ urllib3==1.26.3
 wcwidth==0.2.5
 Werkzeug==1.0.1
 zipp==3.4.0
+tensorflow==2.4.1
+tensorflow-gpu==2.4.1
+h5py==2.10.0

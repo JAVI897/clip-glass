@@ -1,6 +1,6 @@
 import torch
 from pytorch_pretrained_biggan import  truncated_noise_sample
-from pre_trained_transformers_tf.py import get_captions
+from pre_trained_transformers_tf import get_captions
 from gpt2.encoder import get_encoder
 
 class DeepMindBigGANLatentSpace(torch.nn.Module):
