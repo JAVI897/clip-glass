@@ -2,7 +2,7 @@ import tensorflow as tf
 from transformer_models.utility import  get_inference_model, generate_caption, custom_standardization
 import json
 import re
-
+import time
 models_paths = {'EfficientNetB0 pre-trained on imagenet': 
 					{512:['transformer_models/EfficientNetB0_imagenet_model_1/tokenizer', 
 					      'transformer_models/EfficientNetB0_imagenet_model_1/config_train.json', 
@@ -56,10 +56,8 @@ def get_captions( img_path, EfficientNetB0_1 = True, EfficientNetB0_2 = True, VG
 		get_model_weights_path = models_paths[top_cnn][embedding_dim][2]
 		prediction = get_image_prediction(img, tokernizer_path, get_model_config_path, get_model_weights_path)
 		captions.append(prediction)
-		print(prediction)
-		print(get_model_config_path)
 		
-	elif EfficientNetB0_2 == True:
+	if EfficientNetB0_2 == True:
 		top_cnn = 'EfficientNetB0 pre-trained on imagenet'
 		embedding_dim = 1024
 		tokernizer_path = models_paths[top_cnn][embedding_dim][0]
@@ -68,7 +66,7 @@ def get_captions( img_path, EfficientNetB0_1 = True, EfficientNetB0_2 = True, VG
 		prediction = get_image_prediction(img, tokernizer_path, get_model_config_path, get_model_weights_path)
 		captions.append(prediction)
 
-	elif VGG16_1 == True:
+	if VGG16_1 == True:
 		top_cnn = 'VGG16 pre-trained on imagenet'
 		embedding_dim = 512
 		tokernizer_path = models_paths[top_cnn][embedding_dim][0]
@@ -76,7 +74,7 @@ def get_captions( img_path, EfficientNetB0_1 = True, EfficientNetB0_2 = True, VG
 		get_model_weights_path = models_paths[top_cnn][embedding_dim][2]
 		prediction = get_image_prediction(img, tokernizer_path, get_model_config_path, get_model_weights_path)
 		captions.append(prediction)
-	elif ResNet_1 == True:
+	if ResNet_1 == True:
 		top_cnn = 'ResNet pre-trained on imagenet'
 		embedding_dim = 512
 		tokernizer_path = models_paths[top_cnn][embedding_dim][0]
@@ -87,8 +85,9 @@ def get_captions( img_path, EfficientNetB0_1 = True, EfficientNetB0_2 = True, VG
 
 	return captions
 
-
+ini_t = time.time()
 captions_preds = get_captions( 'target.jpg', EfficientNetB0_1 = True, EfficientNetB0_2 = True, VGG16_1 = True, ResNet_1 = True)
-print(captions_preds)
 for i in captions_preds:
 	print(i)
+fin_t = time.time()
+print('Tiempo total: ', fin_t - ini_t)
