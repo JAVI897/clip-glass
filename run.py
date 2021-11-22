@@ -84,7 +84,7 @@ while len(vecs) < config.batch_size:
     new_vec = []
     while len(new_vec) < config.dim_z:
         new_vec.append(random.randint(0, config.encoder_size))
-        vecs.append(new_vec)
+    vecs.append(new_vec)
 
 
 initial_solutions = np.array(vecs)
