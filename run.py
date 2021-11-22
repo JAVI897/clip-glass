@@ -86,8 +86,7 @@ initial_solutions = np.array(vecs)
 algorithm = get_algorithm(
     config.algorithm,
     pop_size=config.pop_size,
-    x0 = initial_solutions,
-    sampling= operators['sampling'],
+    sampling= initial_solutions,
     crossover=operators["crossover"],
     mutation=operators["mutation"],
     eliminate_duplicates=True,
