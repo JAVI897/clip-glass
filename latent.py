@@ -61,7 +61,7 @@ class GPT2LatentSpace(torch.nn.Module):
             captions = get_captions(self.config.target)
             end_t = time.time()
             print('[INFO] Generated captions. Time: {}'.format(end_t - ini_t))
-            captions_tokenized = {i: torch.tensor(self.enc.encode(caption)).to(self.config.device) for i, caption in enumerate(captions)}
+            captions_tokenized = {i: self.enc.encode(caption) for i, caption in enumerate(captions)}
             with open(self.config.target + '.json', 'w') as fp:
                 json.dump(captions_tokenized, fp)
 
