@@ -2,6 +2,7 @@ import torch
 from pytorch_pretrained_biggan import  truncated_noise_sample
 from pre_trained_transformers_tf import get_captions
 from gpt2.encoder import get_encoder
+import time
 
 class DeepMindBigGANLatentSpace(torch.nn.Module):
     def __init__(self, config):
@@ -49,10 +50,13 @@ class GPT2LatentSpace(torch.nn.Module):
         self.config = config
         self.enc = get_encoder(config)
 
-        #captions = get_captions(self.config.target)
-
+        ini_t = time.time()
+        captions = get_captions(self.config.target)
+        end_t = time.time()
+        print('[INFO] Generated captions. Time: {}'.format(end_t - ini_t))
+        captions_tokenized = [torch.tensor(self.enc.encode(caption)).to(self.config.device) for caption in captions]
         # to:do: create tokens from captions already generated
-        
+        print(captions_tokenized)
         #tokens = torch.tensor(self.enc.encode(texto)).to(self.config.device)
         
         # to:do: modify self.z to get a tensor of list captions
