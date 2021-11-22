@@ -50,11 +50,9 @@ class GPT2LatentSpace(torch.nn.Module):
     def __init__(self, config):
         super(GPT2LatentSpace, self).__init__()
         self.config = config
-        
-        print(os.path.join(self.config.target, '.json'))
 
-        if os.path.isfile(os.path.join(self.config.target, '.json')):
-            with open(os.path.join(self.config.target, '.json')) as fp:
+        if os.path.isfile(os.path.join(self.config.target[:-1], '.json')):
+            with open(os.path.join(self.config.target[:-1], '.json')) as fp:
                 captions_tokenized = json.load(fp)
                 print(captions_tokenized)
         else:
@@ -64,7 +62,7 @@ class GPT2LatentSpace(torch.nn.Module):
             end_t = time.time()
             print('[INFO] Generated captions. Time: {}'.format(end_t - ini_t))
             captions_tokenized = {i: torch.tensor(self.enc.encode(caption)).to(self.config.device) for i, caption in enumerate(captions)}
-            with open(os.path.join(self.config.target, '.json'), 'w') as fp:
+            with open(os.path.join(self.config.target[:-1], '.json'), 'w') as fp:
                 json.dump(captions_tokenized, fp)
 
         # to:do: create tokens from captions already generated
