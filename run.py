@@ -16,6 +16,7 @@ from gpt2.encoder import get_encoder
 import os
 import random
 from itertools import cycle
+import numpy as np
 
 parser = argparse.ArgumentParser()
 
@@ -79,7 +80,7 @@ for vec in cycle(captions_tokenized):
             new_vec.append(random.randint(0, config.encoder_size))
             vecs.append(new_vec)
 
-initial_solutions = torch.as_tensor(vecs)
+initial_solutions = np.array(vecs)
 
 
 algorithm = get_algorithm(
