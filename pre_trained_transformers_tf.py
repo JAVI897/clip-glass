@@ -56,7 +56,9 @@ def get_captions( img_path, EfficientNetB0_1 = True, EfficientNetB0_2 = True, VG
 		get_model_weights_path = models_paths[top_cnn][embedding_dim][2]
 		prediction = get_image_prediction(img, tokernizer_path, get_model_config_path, get_model_weights_path)
 		captions.append(prediction)
-
+		print(prediction)
+		print(get_model_config_path)
+		
 	elif EfficientNetB0_2 == True:
 		top_cnn = 'EfficientNetB0 pre-trained on imagenet'
 		embedding_dim = 1024
@@ -87,5 +89,6 @@ def get_captions( img_path, EfficientNetB0_1 = True, EfficientNetB0_2 = True, VG
 
 if __name__ == 'main':
 	captions_preds = get_captions( 'target.jpg', EfficientNetB0_1 = True, EfficientNetB0_2 = True, VGG16_1 = True, ResNet_1 = True)
+	print(captions_preds)
 	for i in captions_preds:
 		print(i)
