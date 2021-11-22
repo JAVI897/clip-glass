@@ -70,15 +70,13 @@ print('[INFO] Generated captions. Time: {}'.format(end_t - ini_t))
 
 captions_tokenized = [ enc.encode(caption) for caption in captions ]
 
+
 vecs = []
 for vec in captions_tokenized:
-    if len(vecs) >= config.batch_size:
-        break
-    else:
-        new_vec = vec
-        while len(new_vec) < config.dim_z:
-            new_vec.append(random.randint(0, config.encoder_size))
-            vecs.append(new_vec)
+    new_vec = vec
+    while len(new_vec) < config.dim_z:
+        new_vec.append(random.randint(0, config.encoder_size))
+    vecs.append(new_vec)
 
 while len(vecs) < config.batch_size:
     new_vec = []
