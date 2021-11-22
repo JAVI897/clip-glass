@@ -71,7 +71,7 @@ class GPT2LatentSpace(torch.nn.Module):
                 else:
                     new_vec = vec
                     while len(new_vec) < self.config.dim_z:
-                        new_vec.append(random.choice(vec))
+                        new_vec.append(random.randint(0, self.config.encoder_size))
                     vecs.append(new_vec)
             self.z = torch.as_tensor(vecs)
             torch.save(self.z, self.config.target + '.pt')
@@ -80,7 +80,7 @@ class GPT2LatentSpace(torch.nn.Module):
         #self.z = torch.zeros(self.config.batch_size, self.config.dim_z)
     
     def set_values(self, z):
-        self.z.data = z
+        self.z.data = self.z
 
     def set_from_population(self, x):
         self.z.data = torch.tensor(x.astype(int)).long().to(self.config.device)
