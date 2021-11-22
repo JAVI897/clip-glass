@@ -25,7 +25,7 @@ parser.add_argument("--target", type=str, default="a wolf at night with the moon
 config = parser.parse_args()
 vars(config).update(get_config(config.config))
 
-captions = get_captions(self.config.target)
+captions = get_captions(config.target)
 end_t = time.time()
 print('[INFO] Generated captions. Time: {}'.format(end_t - ini_t))
 tot_captions = ''
