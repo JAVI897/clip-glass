@@ -51,7 +51,7 @@ class GPT2LatentSpace(torch.nn.Module):
     def __init__(self, config):
         super(GPT2LatentSpace, self).__init__()
         self.config = config
-        """
+
         if os.path.isfile(self.config.target + '.pt'):
             self.z = torch.load(self.config.target + '.pt')
         else:
@@ -73,8 +73,8 @@ class GPT2LatentSpace(torch.nn.Module):
                     vecs.append(new_vec)
             self.z = torch.as_tensor(vecs)
             torch.save(self.z, self.config.target + '.pt')
-        """
-        self.z = torch.randint(0, self.config.encoder_size, size=(self.config.batch_size, self.config.dim_z)).to(self.config.device)
+
+        #self.z = torch.randint(0, self.config.encoder_size, size=(self.config.batch_size, self.config.dim_z)).to(self.config.device)
         #self.z = torch.zeros(self.config.batch_size, self.config.dim_z)
     
     def set_values(self, z):
