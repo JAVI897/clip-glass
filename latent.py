@@ -6,9 +6,6 @@ import time
 import os
 import pickle
 
-global captions_tokenized
-captions_tokenized = None
-
 class DeepMindBigGANLatentSpace(torch.nn.Module):
     def __init__(self, config):
         super(DeepMindBigGANLatentSpace, self).__init__()
@@ -54,16 +51,21 @@ class GPT2LatentSpace(torch.nn.Module):
         super(GPT2LatentSpace, self).__init__()
         self.config = config
 
-        if captions_tokenized is None:
+        if os.path.isfile(self.config.target + '.obj'):
+            captions_tokenized = pickle.load(open(self.config.target + '.obj', 'r') )
+            print(captions_tokenized)
+        else:
             self.enc = get_encoder(config)
             ini_t = time.time()
             captions = get_captions(self.config.target)
             end_t = time.time()
             print('[INFO] Generated captions. Time: {}'.format(end_t - ini_t))
-            captions_tokenized = [self.enc.encode(caption) for caption in captions]
+            captions_tokenized = {i: self.enc.encode(caption) for i, caption in enumerate(captions)}
+            fp = open(self.config.target + '.obj', 'w') 
+            pickle.dump(captions_tokenized, fp)
 
         # to:do: create tokens from captions already generated
-        print(captions_tokenized)
+
         #tokens = torch.tensor(self.enc.encode(texto)).to(self.config.device)
         
         # to:do: modify self.z to get a tensor of list captions
