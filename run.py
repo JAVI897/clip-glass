@@ -13,6 +13,9 @@ from problem import GenerationProblem
 from operators import get_operators
 import time
 from gpt2.encoder import get_encoder
+import os
+import random
+from itertools import cycle
 
 parser = argparse.ArgumentParser()
 
@@ -75,7 +78,7 @@ for vec in cycle(captions_tokenized):
         while len(new_vec) < self.config.dim_z:
             new_vec.append(random.randint(0, self.config.encoder_size))
             vecs.append(new_vec)
-            
+
 initial_solutions = torch.as_tensor(vecs)
 
 
