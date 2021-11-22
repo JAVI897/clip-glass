@@ -80,7 +80,7 @@ class GPT2LatentSpace(torch.nn.Module):
             self.z = torch.as_tensor(vecs)
             torch.save(self.z, self.config.target + '.pt')
 
-        self.z = torch.randint(0, self.config.encoder_size, size=(self.config.batch_size, self.config.dim_z)).to(self.config.device)
+        #self.z = torch.randint(0, self.config.encoder_size, size=(self.config.batch_size, self.config.dim_z)).to(self.config.device)
         #self.z = torch.zeros(self.config.batch_size, self.config.dim_z)
     
     def set_values(self, z):
