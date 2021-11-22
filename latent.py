@@ -1,11 +1,5 @@
 import torch
 from pytorch_pretrained_biggan import  truncated_noise_sample
-from pre_trained_transformers_tf import get_captions
-from gpt2.encoder import get_encoder
-import time
-import os
-import random
-from itertools import cycle
 
 class DeepMindBigGANLatentSpace(torch.nn.Module):
     def __init__(self, config):
@@ -52,35 +46,7 @@ class GPT2LatentSpace(torch.nn.Module):
         super(GPT2LatentSpace, self).__init__()
         self.config = config
 
-        if os.path.isfile(self.config.target + '.pt'):
-            self.z = torch.load(self.config.target + '.pt')
-        else:
-            self.enc = get_encoder(config)
-            ini_t = time.time()
-            captions = get_captions(self.config.target)
-            end_t = time.time()
-            print('[INFO] Generated captions. Time: {}'.format(end_t - ini_t))
-            tot_captions = ''
-            for caption in captions:
-                print('Caption: ', caption)
-                tot_captions = tot_captions + ' ' + caption
-            self.config.init_text = tot_captions
-            
-            captions_tokenized = [ self.enc.encode(caption) for caption in captions ]
-
-            vecs = []
-            for vec in cycle(captions_tokenized):
-                if len(vecs) >= self.config.batch_size:
-                    break
-                else:
-                    new_vec = vec
-                    while len(new_vec) < self.config.dim_z:
-                        new_vec.append(random.randint(0, self.config.encoder_size))
-                    vecs.append(new_vec)
-            self.z = torch.as_tensor(vecs)
-            torch.save(self.z, self.config.target + '.pt')
-
-        #self.z = torch.randint(0, self.config.encoder_size, size=(self.config.batch_size, self.config.dim_z)).to(self.config.device)
+        self.z = torch.randint(0, self.config.encoder_size, size=(self.config.batch_size, self.config.dim_z)).to(self.config.device)
         #self.z = torch.zeros(self.config.batch_size, self.config.dim_z)
     
     def set_values(self, z):

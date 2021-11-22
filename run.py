@@ -7,10 +7,11 @@ from pymoo.optimize import minimize
 from pymoo.algorithms.so_genetic_algorithm import GA
 from pymoo.factory import get_algorithm, get_decision_making, get_decomposition
 from pymoo.visualization.scatter import Scatter
-
+from pre_trained_transformers_tf import get_captions
 from config import get_config
 from problem import GenerationProblem
 from operators import get_operators
+import time
 
 parser = argparse.ArgumentParser()
 
@@ -23,7 +24,15 @@ parser.add_argument("--target", type=str, default="a wolf at night with the moon
 
 config = parser.parse_args()
 vars(config).update(get_config(config.config))
-config.init_text = 'a dog is standing on a beach with a frisbee'
+
+captions = get_captions(self.config.target)
+end_t = time.time()
+print('[INFO] Generated captions. Time: {}'.format(end_t - ini_t))
+tot_captions = ''
+for caption in captions:
+    print('Caption: ', caption)
+    tot_captions = tot_captions + ' ' + caption
+config.init_text = tot_captions
 
 iteration = 0
 def save_callback(algorithm):
