@@ -49,7 +49,7 @@ class GPT2LatentSpace(torch.nn.Module):
         self.config = config
         self.enc = get_encoder(config)
 
-        captions = get_captions(self.config.target)
+        #captions = get_captions(self.config.target)
 
         # to:do: create tokens from captions already generated
         
