@@ -4,7 +4,10 @@ from pre_trained_transformers_tf import get_captions
 from gpt2.encoder import get_encoder
 import time
 import os
-import json
+import pickle
+
+global captions_tokenized
+captions_tokenized = None
 
 class DeepMindBigGANLatentSpace(torch.nn.Module):
     def __init__(self, config):
@@ -51,22 +54,16 @@ class GPT2LatentSpace(torch.nn.Module):
         super(GPT2LatentSpace, self).__init__()
         self.config = config
 
-        if os.path.isfile(self.config.target + '.json'):
-            with open(self.config.target + '.json') as fp:
-                captions_tokenized = json.load(fp)
-                print(captions_tokenized)
-        else:
+        if captions_tokenized is None:
             self.enc = get_encoder(config)
             ini_t = time.time()
             captions = get_captions(self.config.target)
             end_t = time.time()
             print('[INFO] Generated captions. Time: {}'.format(end_t - ini_t))
-            captions_tokenized = {i: self.enc.encode(caption) for i, caption in enumerate(captions)}
-            with open(self.config.target + '.json', 'w') as fp:
-                json.dump(captions_tokenized, fp)
+            captions_tokenized = [self.enc.encode(caption) for caption in captions]
 
         # to:do: create tokens from captions already generated
-
+        print(captions_tokenized)
         #tokens = torch.tensor(self.enc.encode(texto)).to(self.config.device)
         
         # to:do: modify self.z to get a tensor of list captions
