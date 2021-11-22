@@ -23,7 +23,7 @@ parser.add_argument("--target", type=str, default="a wolf at night with the moon
 
 config = parser.parse_args()
 vars(config).update(get_config(config.config))
-
+config.init_text = 'a dog is standing on a beach with a frisbee'
 
 iteration = 0
 def save_callback(algorithm):
