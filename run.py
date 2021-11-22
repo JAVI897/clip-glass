@@ -25,16 +25,6 @@ parser.add_argument("--target", type=str, default="a wolf at night with the moon
 config = parser.parse_args()
 vars(config).update(get_config(config.config))
 
-ini_t = time.time()
-captions = get_captions(config.target)
-end_t = time.time()
-print('[INFO] Generated captions. Time: {}'.format(end_t - ini_t))
-#tot_captions = ''
-#for caption in captions:
-#    print('Caption: ', caption)
-#    tot_captions = tot_captions + ' ' + caption
-config.init_text = captions[0]
-
 iteration = 0
 def save_callback(algorithm):
     global iteration
