@@ -71,7 +71,7 @@ print('[INFO] Generated captions. Time: {}'.format(end_t - ini_t))
 captions_tokenized = [ enc.encode(caption) for caption in captions ]
 
 vecs = []
-for vec in cycle(captions_tokenized):
+for vec in captions_tokenized:
     if len(vecs) >= config.batch_size:
         break
     else:
@@ -80,8 +80,15 @@ for vec in cycle(captions_tokenized):
             new_vec.append(random.randint(0, config.encoder_size))
             vecs.append(new_vec)
 
-initial_solutions = np.array(vecs)
+while len(vecs) < config.batch_size:
+    new_vec = []
+    while len(new_vec) < config.dim_z:
+        new_vec.append(random.randint(0, config.encoder_size))
+        vecs.append(new_vec)
 
+
+initial_solutions = np.array(vecs)
+print(initial_solutions.shape)
 
 algorithm = get_algorithm(
     config.algorithm,
