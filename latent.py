@@ -53,7 +53,6 @@ class GPT2LatentSpace(torch.nn.Module):
 
         if os.path.isfile(self.config.target + '.pickle'):
             captions_tokenized = pickle.load(open(self.config.target + '.pickle', 'rb') )
-            print(captions_tokenized)
         else:
             self.enc = get_encoder(config)
             ini_t = time.time()
@@ -61,6 +60,7 @@ class GPT2LatentSpace(torch.nn.Module):
             end_t = time.time()
             print('[INFO] Generated captions. Time: {}'.format(end_t - ini_t))
             captions_tokenized = {i: self.enc.encode(caption) for i, caption in enumerate(captions)}
+            print(captions_tokenized)
             fp = open(self.config.target + '.pickle', 'wb') 
             pickle.dump(captions_tokenized, fp)
 
