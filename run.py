@@ -12,6 +12,7 @@ from config import get_config
 from problem import GenerationProblem
 from operators import get_operators
 import time
+from gpt2.encoder import get_encoder
 
 parser = argparse.ArgumentParser()
 
@@ -56,10 +57,32 @@ operators = get_operators(config)
 
 if not os.path.exists(config.tmp_folder): os.mkdir(config.tmp_folder)
 
+
+enc = get_encoder(config)
+ini_t = time.time()
+captions = get_captions(config.target)
+end_t = time.time()
+print('[INFO] Generated captions. Time: {}'.format(end_t - ini_t))
+
+captions_tokenized = [ enc.encode(caption) for caption in captions ]
+
+vecs = []
+for vec in cycle(captions_tokenized):
+    if len(vecs) >= config.batch_size:
+        break
+    else:
+        new_vec = vec
+        while len(new_vec) < self.config.dim_z:
+            new_vec.append(random.randint(0, self.config.encoder_size))
+            vecs.append(new_vec)
+            
+initial_solutions = torch.as_tensor(vecs)
+
+
 algorithm = get_algorithm(
     config.algorithm,
     pop_size=config.pop_size,
-    sampling=operators["sampling"],
+    sampling= initial_solutions,
     crossover=operators["crossover"],
     mutation=operators["mutation"],
     eliminate_duplicates=True,
