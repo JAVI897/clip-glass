@@ -86,7 +86,7 @@ while len(vecs) < config.batch_size:
 
 
 initial_solutions = np.array(vecs)
-print(initial_solutions.shape)
+print(initial_solutions)
 
 algorithm = get_algorithm(
     config.algorithm,
