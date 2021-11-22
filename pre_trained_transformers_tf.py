@@ -87,8 +87,8 @@ def get_captions( img_path, EfficientNetB0_1 = True, EfficientNetB0_2 = True, VG
 
 	return captions
 
-if __name__ == 'main':
-	captions_preds = get_captions( 'target.jpg', EfficientNetB0_1 = True, EfficientNetB0_2 = True, VGG16_1 = True, ResNet_1 = True)
-	print(captions_preds)
-	for i in captions_preds:
-		print(i)
+
+captions_preds = get_captions( 'target.jpg', EfficientNetB0_1 = True, EfficientNetB0_2 = True, VGG16_1 = True, ResNet_1 = True)
+print(captions_preds)
+for i in captions_preds:
+	print(i)
