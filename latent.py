@@ -50,6 +50,8 @@ class GPT2LatentSpace(torch.nn.Module):
     def __init__(self, config):
         super(GPT2LatentSpace, self).__init__()
         self.config = config
+        
+        print(os.path.join(self.config.target, '.json'))
 
         if os.path.isfile(os.path.join(self.config.target, '.json')):
             with open(os.path.join(self.config.target, '.json')) as fp:
