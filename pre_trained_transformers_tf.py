@@ -85,9 +85,9 @@ def get_captions( img_path, EfficientNetB0_1 = True, EfficientNetB0_2 = True, VG
 
 	return captions
 
-ini_t = time.time()
-captions_preds = get_captions( 'target.jpg', EfficientNetB0_1 = True, EfficientNetB0_2 = True, VGG16_1 = True, ResNet_1 = True)
-for i in captions_preds:
-	print(i)
-fin_t = time.time()
-print('Tiempo total: ', fin_t - ini_t)
+#ini_t = time.time()
+#captions_preds = get_captions( 'target.jpg', EfficientNetB0_1 = True, EfficientNetB0_2 = True, VGG16_1 = True, ResNet_1 = True)
+#for i in captions_preds:
+#	print(i)
+#fin_t = time.time()
+#print('Tiempo total: ', fin_t - ini_t)
