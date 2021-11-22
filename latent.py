@@ -3,6 +3,8 @@ from pytorch_pretrained_biggan import  truncated_noise_sample
 from pre_trained_transformers_tf import get_captions
 from gpt2.encoder import get_encoder
 import time
+import os
+import json
 
 class DeepMindBigGANLatentSpace(torch.nn.Module):
     def __init__(self, config):
@@ -48,15 +50,23 @@ class GPT2LatentSpace(torch.nn.Module):
     def __init__(self, config):
         super(GPT2LatentSpace, self).__init__()
         self.config = config
-        self.enc = get_encoder(config)
 
-        ini_t = time.time()
-        captions = get_captions(self.config.target)
-        end_t = time.time()
-        print('[INFO] Generated captions. Time: {}'.format(end_t - ini_t))
-        captions_tokenized = [torch.tensor(self.enc.encode(caption)).to(self.config.device) for caption in captions]
+        if os.path.isfile(os.join(self.config.target, '.json')):
+            with open(os.join(self.config.target, '.json')) as fp:
+                captions_tokenized = json.load(fp)
+                print(captions_tokenized)
+        else:
+            self.enc = get_encoder(config)
+            ini_t = time.time()
+            captions = get_captions(self.config.target)
+            end_t = time.time()
+            print('[INFO] Generated captions. Time: {}'.format(end_t - ini_t))
+            captions_tokenized = {i: torch.tensor(self.enc.encode(caption)).to(self.config.device) for i, caption in enumerate(captions)}
+            with open(os.join(self.config.target, '.json'), 'w') as fp:
+                json.dump(captions_tokenized, fp)
+
         # to:do: create tokens from captions already generated
-        print(captions_tokenized)
+
         #tokens = torch.tensor(self.enc.encode(texto)).to(self.config.device)
         
         # to:do: modify self.z to get a tensor of list captions
