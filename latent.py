@@ -60,6 +60,8 @@ class GPT2LatentSpace(torch.nn.Module):
             captions = get_captions(self.config.target)
             end_t = time.time()
             print('[INFO] Generated captions. Time: {}'.format(end_t - ini_t))
+            for caption in captions:
+                print('Caption: ', caption)
             captions_tokenized = [ self.enc.encode(caption) for caption in captions ]
 
             vecs = []

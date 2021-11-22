@@ -123,3 +123,4 @@ elif config.task == "img2txt":
     ext = "txt"
 
 problem.generator.save(generated, os.path.join(config.tmp_folder, "output.%s" % (ext)))
+print(X)
