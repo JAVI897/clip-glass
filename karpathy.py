@@ -69,6 +69,7 @@ def main():
 		time_ini_pred = time.time()
 		for test_img in file.readlines():
 			global iteration
+			global config
 			iteration = 0
 			config = parser.parse_args()
 			vars(config).update(get_config(config.config))
@@ -172,7 +173,7 @@ def main():
 			c+=1
 			if c == 2:
 				break
-				
+
 		time_end_pred = time.time()
 		total_time = time_end_pred - time_ini_pred
 
