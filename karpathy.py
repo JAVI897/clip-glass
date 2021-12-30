@@ -176,7 +176,6 @@ def main():
 			c+=1
 			if c % 9 == 0:
 				print('[INFO] Evaluated {} out of {}'.format(c, 5000))
-				break
 
 		time_end_pred = time.time()
 		total_time = time_end_pred - time_ini_pred
