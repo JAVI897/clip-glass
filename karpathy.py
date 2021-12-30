@@ -174,7 +174,8 @@ def main():
 			#print(captions)
 			# debugging
 			c+=1
-			if c == 5:
+			if c % 10:
+				print('[INFO] Evaluated {} out of {}'.format(c, 5000))
 				break
 
 		time_end_pred = time.time()
@@ -182,7 +183,7 @@ def main():
 		print('[INFO] Total time: {}'.format(total_time))
 		df = pd.DataFrame(captions_final, columns = ['caption 1', 'caption 2', 'caption 3', 'caption 4', 'caption 5', 'prediction'])
 		print('\nWriting predictions to file "{}".'.format(output_predictions))
-		#df.to_csv(output_predictions)
+		df.to_csv(output_predictions)
 
 
 if __name__ == '__main__':
