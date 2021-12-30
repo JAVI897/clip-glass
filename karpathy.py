@@ -64,7 +64,7 @@ def main():
 		captions_final = []
 		predictions = []
 		file = open('data/coco/karpathy_valid_images.txt','r')
-		c = 1
+		c = 0
 		time_ini_pred = time.time()
 		for test_img in file.readlines():
 			global iteration
@@ -174,7 +174,7 @@ def main():
 			#print(captions)
 			# debugging
 			c+=1
-			if c % 10:
+			if c % 9:
 				print('[INFO] Evaluated {} out of {}'.format(c, 5000))
 				break
 
