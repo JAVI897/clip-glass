@@ -68,12 +68,11 @@ def main():
 		for test_img in file.readlines():
 			config = parser.parse_args()
 			vars(config).update(get_config(config.config))
-			print(config)
 			file_path, number_instance = test_img.split()
 			_, name_img = file_path.split('/')
 			name_img = 'data/coco/val2014/'+ name_img # image path
 			config.target = name_img
-
+			print(config)
 			caption_img = captions_valid_test[number_instance][:5]
 
 			iteration = 0
