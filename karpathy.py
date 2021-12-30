@@ -174,7 +174,7 @@ def main():
 			#print(captions)
 			# debugging
 			c+=1
-			if c % 9:
+			if c % 9 == 0:
 				print('[INFO] Evaluated {} out of {}'.format(c, 5000))
 				break
 
