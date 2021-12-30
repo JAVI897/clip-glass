@@ -5,7 +5,7 @@ from utils import biggan_norm, biggan_denorm
 configs = dict(
     GPT2 = dict(
         task = "img2txt",
-        dim_z = 20,
+        dim_z = 30,
         max_tokens_len = 30,
         max_text_len = 50,
         encoder_size = 50257,
