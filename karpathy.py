@@ -55,7 +55,6 @@ def save_callback(algorithm):
 def main():
 
 	output_predictions = 'karpathy_test_predictions_generations_{}.csv'.format(parser.parse_args().generations)
-	print(output_predictions)
 	#Get ground truth captions validation
 	with open('data/coco/karpathy_validation_captions.json') as json_file:
 		captions_valid_test = json.load(json_file)
@@ -168,17 +167,21 @@ def main():
 			    generated = problem.generator.generate(ls)
 			print(generated)
 			
+			caption_img.append(generated[0])
+			captions.append(caption_img)
+
 			# debugging
 			c+=1
-			if c == 2:
+			if c == 5:
 				break
 
 		time_end_pred = time.time()
 		total_time = time_end_pred - time_ini_pred
-
-		#df = pd.DataFrame(captions, columns = ['caption 1', 'caption 2', 'caption 3', 'caption 4', 'caption 5', 'prediction'])
-		#print('\nWriting predictions to file "{}".'.format(config['output_predictions']))
-		#df.to_csv(config['output_predictions'])
+		print('[INFO] Total time: {}'.format(total_time))
+		
+		df = pd.DataFrame(captions, columns = ['caption 1', 'caption 2', 'caption 3', 'caption 4', 'caption 5', 'prediction'])
+		print('\nWriting predictions to file "{}".'.format(output_predictions))
+		df.to_csv(output_predictions)
 
 
 if __name__ == '__main__':
