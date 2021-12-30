@@ -21,9 +21,9 @@ configs = dict(
         pop_size = 100,
         batch_size = 25,
         problem_args = dict(
-            n_var = 20,
+            n_var = 30,
             n_obj = 1,
-            n_constr = 20,
+            n_constr = 30,
             xl = 0,
             xu = 50256
         )
