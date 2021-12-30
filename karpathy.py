@@ -61,8 +61,7 @@ def main():
 		captions_valid_test = json.load(json_file)
 
 	if not os.path.isfile(output_predictions):
-		captions = []
-		abc = []
+		captions_final = []
 		predictions = []
 		file = open('data/coco/karpathy_valid_images.txt','r')
 		c = 0
@@ -171,8 +170,7 @@ def main():
 			print(generated)
 			
 			caption_img.append(generated[0])
-			captions.append(caption_img)
-			abc.append(caption_img)
+			captions_final.append(caption_img)
 			#print(captions)
 			# debugging
 			c+=1
@@ -182,9 +180,7 @@ def main():
 		time_end_pred = time.time()
 		total_time = time_end_pred - time_ini_pred
 		print('[INFO] Total time: {}'.format(total_time))
-		print(captions)
-		print(abc)
-		df = pd.DataFrame(captions, columns = ['caption 1', 'caption 2', 'caption 3', 'caption 4', 'caption 5', 'prediction'])
+		df = pd.DataFrame(captions_final, columns = ['caption 1', 'caption 2', 'caption 3', 'caption 4', 'caption 5', 'prediction'])
 		print('\nWriting predictions to file "{}".'.format(output_predictions))
 		df.to_csv(output_predictions)
 
