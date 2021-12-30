@@ -65,17 +65,19 @@ def main():
 		captions = []
 		predictions = []
 		file = open('data/coco/karpathy_valid_images.txt','r')
+		c = 0
+		time_ini_pred = time.time()
 		for test_img in file.readlines():
+			global iteration
+			iteration = 0
 			config = parser.parse_args()
 			vars(config).update(get_config(config.config))
 			file_path, number_instance = test_img.split()
 			_, name_img = file_path.split('/')
 			name_img = 'data/coco/val2014/'+ name_img # image path
 			config.target = name_img
-			print(config)
 			caption_img = captions_valid_test[number_instance][:5]
 
-			iteration = 0
 			problem = GenerationProblem(config)
 			operators = get_operators(config)
 
@@ -165,7 +167,14 @@ def main():
 			with torch.no_grad():
 			    generated = problem.generator.generate(ls)
 			print(generated)
-			break
+			
+			# debugging
+			c+=1
+			if c == 2:
+				break
+				
+		time_end_pred = time.time()
+		total_time = time_end_pred - time_ini_pred
 
 		#df = pd.DataFrame(captions, columns = ['caption 1', 'caption 2', 'caption 3', 'caption 4', 'caption 5', 'prediction'])
 		#print('\nWriting predictions to file "{}".'.format(config['output_predictions']))
