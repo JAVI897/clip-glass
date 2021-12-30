@@ -119,7 +119,7 @@ def main():
 			)
 
 			res = minimize(
-				seed = 1
+				seed = 1,
 			    problem,
 			    algorithm,
 			    ("n_gen", config.generations),
