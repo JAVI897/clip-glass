@@ -18,6 +18,7 @@ import random
 from itertools import cycle
 import numpy as np
 import json
+import pandas as pd
 
 parser = argparse.ArgumentParser()
 
@@ -118,6 +119,7 @@ def main():
 			)
 
 			res = minimize(
+				seed = 1
 			    problem,
 			    algorithm,
 			    ("n_gen", config.generations),
