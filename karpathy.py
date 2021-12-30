@@ -170,8 +170,9 @@ def main():
 			print(generated)
 			
 			caption_img.append(generated[0])
+			print(caption_img)
 			captions.append(caption_img)
-
+			print(captions)
 			# debugging
 			c+=1
 			if c == 5:
