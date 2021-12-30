@@ -180,7 +180,7 @@ def main():
 		time_end_pred = time.time()
 		total_time = time_end_pred - time_ini_pred
 		print('[INFO] Total time: {}'.format(total_time))
-		
+		print(captions)
 		df = pd.DataFrame(captions, columns = ['caption 1', 'caption 2', 'caption 3', 'caption 4', 'caption 5', 'prediction'])
 		print('\nWriting predictions to file "{}".'.format(output_predictions))
 		df.to_csv(output_predictions)
