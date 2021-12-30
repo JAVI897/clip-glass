@@ -5,9 +5,9 @@ from utils import biggan_norm, biggan_denorm
 configs = dict(
     GPT2 = dict(
         task = "img2txt",
-        dim_z = 20,
-        max_tokens_len = 30,
-        max_text_len = 50,
+        dim_z = 30,
+        max_tokens_len = 70,
+        max_text_len = 80,
         encoder_size = 50257,
         latent = GPT2LatentSpace,
         model = GPT2,
@@ -21,9 +21,9 @@ configs = dict(
         pop_size = 100,
         batch_size = 25,
         problem_args = dict(
-            n_var = 20,
+            n_var = 30,
             n_obj = 1,
-            n_constr = 20,
+            n_constr = 30,
             xl = 0,
             xu = 50256
         )
