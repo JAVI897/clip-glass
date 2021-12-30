@@ -119,12 +119,12 @@ def main():
 			)
 
 			res = minimize(
-				seed = 1,
 			    problem,
 			    algorithm,
 			    ("n_gen", config.generations),
 			    save_history=False,
 			    verbose=True,
+			    seed = 1
 			)
 
 			pickle.dump(dict(
