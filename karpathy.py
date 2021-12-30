@@ -26,7 +26,6 @@ parser.add_argument("--config", type=str, default="DeepMindBigGAN512")
 parser.add_argument("--generations", type=int, default=500)
 parser.add_argument("--save-each", type=int, default=50)
 parser.add_argument("--tmp-folder", type=str, default="./tmp")
-parser.add_argument("--target", type=str, default="a wolf at night with the moon in the background")
 
 def save_callback(algorithm):
     global iteration
@@ -67,9 +66,14 @@ def main():
 		predictions = []
 		file = open('data/coco/karpathy_valid_images.txt','r')
 		for test_img in file.readlines():
+			config = parser.parse_args()
+			vars(config).update(get_config(config.config))
+			print(config)
 			file_path, number_instance = test_img.split()
 			_, name_img = file_path.split('/')
 			name_img = 'data/coco/val2014/'+ name_img # image path
+			config.target = name_img
+
 			caption_img = captions_valid_test[number_instance][:5]
 
 			iteration = 0
