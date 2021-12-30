@@ -64,7 +64,7 @@ def main():
 		captions_final = []
 		predictions = []
 		file = open('data/coco/karpathy_valid_images.txt','r')
-		c = 0
+		c = 1
 		time_ini_pred = time.time()
 		for test_img in file.readlines():
 			global iteration
