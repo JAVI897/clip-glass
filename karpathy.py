@@ -55,7 +55,7 @@ def save_callback(algorithm):
 def main():
 	config = parser.parse_args()
 	vars(config).update(get_config(config.config))
-	output_predictions = 'karpathy_test_predictions_generations_{}.csv'.format(config['generations'])
+	output_predictions = 'karpathy_test_predictions_generations_{}.csv'.format(config.generations)
 
 	#Get ground truth captions validation
 	with open('data/coco/karpathy_validation_captions.json') as json_file:
