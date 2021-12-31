@@ -3,6 +3,9 @@ from transformer_models.utility import  get_inference_model, generate_caption, c
 import json
 import re
 import time
+import warnings
+warnings.filterwarnings("ignore")
+
 models_paths = {'EfficientNetB0 pre-trained on imagenet': 
 					{512:['transformer_models/EfficientNetB0_imagenet_model_1/tokenizer', 
 					      'transformer_models/EfficientNetB0_imagenet_model_1/config_train.json', 
