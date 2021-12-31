@@ -5,6 +5,7 @@ import re
 import time
 import warnings
 warnings.filterwarnings("ignore")
+tf.get_logger().setLevel('INFO')
 
 models_paths = {'EfficientNetB0 pre-trained on imagenet': 
 					{512:['transformer_models/EfficientNetB0_imagenet_model_1/tokenizer', 
