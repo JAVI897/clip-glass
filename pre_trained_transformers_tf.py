@@ -44,7 +44,7 @@ def get_image_prediction(img, tokernizer_path, get_model_config_path, get_model_
 	return text_caption
 
 def get_captions( img_path, EfficientNetB0_1 = True, EfficientNetB0_2 = True, VGG16_1 = True, ResNet_1 = True):
-
+	tf.get_logger().setLevel('INFO')
 	img = tf.image.decode_jpeg(tf.io.read_file(img_path), channels=3)
 	img = tf.image.resize(img, (299, 299))
 	img = tf.image.convert_image_dtype(img, tf.float32)
