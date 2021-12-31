@@ -126,7 +126,7 @@ def main():
 			    ("n_gen", config.generations),
 			    save_history=False,
 			    verbose=True,
-			    seed = 1
+			    seed = 344
 			)
 
 			pickle.dump(dict(
