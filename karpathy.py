@@ -20,6 +20,8 @@ import numpy as np
 import json
 import pandas as pd
 import warnings
+import tensorflow as tf
+tf.get_logger().setLevel('INFO')
 warnings.filterwarnings("ignore")
 
 parser = argparse.ArgumentParser()
