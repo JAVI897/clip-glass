@@ -177,11 +177,7 @@ def main():
 			captions_final.append(caption_img)
 			#print(captions)
 			# debugging
-			c+=1
-			if c % 30 == 0:
-				print('[INFO] Evaluated {} out of {}'.format(c, 5000))
-				df_checkpoint = pd.DataFrame(captions_final, columns = ['caption 1', 'caption 2', 'caption 3', 'caption 4', 'caption 5', 'prediction'])
-				df_checkpoint.to_csv('checkpoint_predictions.csv')
+			c+= 1
 
 		time_end_pred = time.time()
 		total_time = time_end_pred - time_ini_pred
